@@ -2,6 +2,7 @@ import './App.css'
 import About from './components/About'
 import Hero from './components/Hero'
 import Navbar from './components/Navbar'
+import Projects from './components/Project'
 
 function App() {
 
@@ -12,6 +13,7 @@ function App() {
       <main className="pt-16">
         <section id='home'><Hero /></section>
         <section id='about'><About /></section>
+        <section id='projects'><Projects /></section>
       </main>
     </div>
   )
