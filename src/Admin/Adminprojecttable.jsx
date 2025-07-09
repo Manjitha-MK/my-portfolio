@@ -6,9 +6,12 @@ import {
   TrashIcon,
 } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const ProjectTable = () => {
   const [projects, setProjects] = useState([]);
+  const [projetsLoad, setProjectLoad] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axios
@@ -16,17 +19,25 @@ const ProjectTable = () => {
       .then((res) => {
         console.log(res.data.projects);
         setProjects(res.data.projects);
+        setProjectLoad(true);
       })
       .catch((err) => {
         console.log("Error fetching projects", err);
+      })
+      .finally(() => {
+        setLoading(false);
       });
-  }, []);
+  }, [projetsLoad]);
+
 
 
 
   return (
     <div className="relative w-full min-h-screen">
-      <Link to={"/admin/projects/addprojects"} className="absolute right-[5px] bottom-[60px]">
+      <Link
+        to={"/admin/projects/addprojects"}
+        className="absolute right-[5px] bottom-[60px]"
+      >
         <PlusIcon className="h-[40px] w-[40px] bg-amber-100 rounded-full text-green-500" />
       </Link>
       <div className="overflow-x-auto w-full">
