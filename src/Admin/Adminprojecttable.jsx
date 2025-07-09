@@ -32,6 +32,22 @@ const ProjectTable = () => {
 
 
 
+  const handleDelete = (projectId) => {
+    if (window.confirm("Are you sure you want to delete this project?")) {
+      axios
+        .delete(`http://localhost:5000/api/projects/${projectId}`)
+        .then((res) => {
+          console.log();
+          toast.success("Project deleted..");
+          setProjectLoad(false);
+        })
+        .catch((err) => {
+          toast.error("Failed to delete Project");
+          console.error(err);
+        });
+    }
+  };
+
   return (
     <div className="relative w-full min-h-screen">
       <Link
@@ -101,7 +117,7 @@ const ProjectTable = () => {
                       <PencilSquareIcon className="h-5 w-5" />
                     </button>
                     <button
-                      
+                      onClick={() => handleDelete(project.projectId)}
                       className="text-red-600 hover:text-red-800 cursor-pointer"
                       title="Delete"
                     >
