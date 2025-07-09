@@ -30,8 +30,11 @@ const ProjectTable = () => {
       });
   }, [projetsLoad]);
 
-  const handleEdit = (projectId) => {
-    navigate(`/admin/projects/editProject/${projectId}`); // example if using React Router
+  const handleEdit = (project) => {
+    navigate(`/admin/projects/editProject/${project.projectId}`,{
+      state : { project },
+    });
+     
   };
 
   const handleDelete = (projectId) => {
@@ -112,7 +115,7 @@ const ProjectTable = () => {
                 <td className="px-4 py-3 border text-center">
                   <div className="flex justify-center items-center gap-2 ">
                     <button
-                      onClick={() => handleEdit(project.projectId)}
+                      onClick={() => handleEdit(project)}
                       className="text-blue-600 hover:text-blue-800 cursor-pointer"
                       title="Edit"
                     >
