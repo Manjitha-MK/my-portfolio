@@ -5,13 +5,14 @@ import {
   PlusIcon,
   TrashIcon,
 } from "@heroicons/react/24/outline";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const ProjectTable = () => {
   const [projects, setProjects] = useState([]);
   const [projetsLoad, setProjectLoad] = useState(false);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -29,8 +30,9 @@ const ProjectTable = () => {
       });
   }, [projetsLoad]);
 
-
-
+  const handleEdit = (projectId) => {
+    navigate(`/admin/projects/editProject/${projectId}`); // example if using React Router
+  };
 
   const handleDelete = (projectId) => {
     if (window.confirm("Are you sure you want to delete this project?")) {
@@ -39,7 +41,7 @@ const ProjectTable = () => {
         .then((res) => {
           console.log();
           toast.success("Project deleted..");
-          setProjectLoad(false);
+          setProjectLoad((prev) => !prev);
         })
         .catch((err) => {
           toast.error("Failed to delete Project");
@@ -110,7 +112,7 @@ const ProjectTable = () => {
                 <td className="px-4 py-3 border text-center">
                   <div className="flex justify-center items-center gap-2 ">
                     <button
-                      
+                      onClick={() => handleEdit(project.projectId)}
                       className="text-blue-600 hover:text-blue-800 cursor-pointer"
                       title="Edit"
                     >
