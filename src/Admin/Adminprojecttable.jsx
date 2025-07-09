@@ -5,7 +5,17 @@ import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/outline";
 const ProjectTable = () => {
   const [projects, setProjects] = useState([]);
 
-
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/api/projects")
+      .then((res) => {
+        console.log(res.data.projects);
+        setProjects(res.data.projects);
+      })
+      .catch((err) => {
+        console.log("Error fetching projects", err);
+      });
+  }, []);
 
   return (
     <div className="overflow-x-auto w-full">
