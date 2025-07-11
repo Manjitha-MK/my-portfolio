@@ -27,6 +27,33 @@ const AdminProjectForm = () => {
     setTechnologies(technologies.filter((t) => t !== tech));
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (
+      !projectId ||
+      !title ||
+      !description ||
+      !category ||
+      !technologies.length
+    ) {
+      toast.error("Please fill all required field");
+      return;
+    }
+    
+    const projectData = {
+      projectId: projectId,
+      projectName: title,
+      description: description,
+      category: category,
+      technologies: technologies,
+      projectUrl: projectUrl,
+      githubUrl: githubUrl,
+    };
+
+    toast.success("Project created successfully!");
+    navigate("/admin/projects");
+  };
+
   return (
     <div className="space-y-6">
       <div>
@@ -39,7 +66,7 @@ const AdminProjectForm = () => {
       </div>
 
       <form
-        onSubmit={""}
+        onSubmit={handleSubmit}
         className="bg-white dark:bg-gray-800 shadow rounded-lg overflow-hidden"
       >
         <div className="p-6 space-y-8">
@@ -234,6 +261,7 @@ const AdminProjectForm = () => {
               <button
                 type="submit"
                 className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700"
+                onClick={() => {}}
               >
                 Create Project
               </button>
