@@ -15,7 +15,7 @@ export default function Hero() {
           delaySpeed={1000}
         />
       </h2>
-      <a href="#projects" className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 rounded-lg mt-4">
+      <a href="" className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 rounded-lg mt-4">
         View Projects
       </a>
     </section>

@@ -1,4 +1,5 @@
 // src/pages/ProjectForm.jsx
+import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -27,32 +28,51 @@ const AdminProjectForm = () => {
     setTechnologies(technologies.filter((t) => t !== tech));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (
-      !projectId ||
-      !title ||
-      !description ||
-      !category ||
-      !technologies.length
-    ) {
-      toast.error("Please fill all required field");
-      return;
-    }
-    
-    const projectData = {
-      projectId: projectId,
-      projectName: title,
-      description: description,
-      category: category,
-      technologies: technologies,
-      projectUrl: projectUrl,
-      githubUrl: githubUrl,
-    };
+  const cleanUrl = (url) => {
+  const trimmed = url.trim();
+  return trimmed === "" ? undefined : trimmed;
+};
 
-    toast.success("Project created successfully!");
-    navigate("/admin/projects");
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  if (
+    !projectId ||
+    !title ||
+    !description ||
+    !category ||
+    !technologies.length
+  ) {
+    toast.error("Please fill all required fields");
+    return;
+  }
+
+  const projectData = {
+    projectId: projectId,
+    projectName: title,
+    description: description,
+    category: category,
+    technologies: technologies,
+   projectUrl: cleanUrl(projectUrl),
+    githubUrl: cleanUrl(githubUrl),
   };
+
+  try {
+     console.log("Sending:", projectData);
+    const response = await axios.post("http://localhost:5000/api/projects", projectData);
+
+    if (response.status === 201 || response.status === 200) {
+      console.log("projects",projectData);
+      toast.success("Project created successfully!");
+      navigate("/admin/projects");
+    } else {
+      toast.error("Failed to create project. Try again.");
+    }
+  } catch (err) {
+    console.error("API error:", err);
+    toast.error("Something went wrong. Please check your server.");
+  }
+};
 
   return (
     <div className="space-y-6">
@@ -261,7 +281,7 @@ const AdminProjectForm = () => {
               <button
                 type="submit"
                 className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700"
-                onClick={() => {}}
+                onSubmit={handleSubmit}
               >
                 Create Project
               </button>
