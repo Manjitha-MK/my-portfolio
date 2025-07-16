@@ -31,9 +31,10 @@ const ProjectTable = () => {
   }, [projetsLoad]);
 
   const handleEdit = (project) => {
-    navigate(`/admin/projects/editProject/${project.projectId}`,{
-      state : { project },
+    navigate(`/admin/projects/editproject`,{
+      state : { project : project},
     });
+  
      
   };
 
