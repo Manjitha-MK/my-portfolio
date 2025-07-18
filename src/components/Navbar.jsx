@@ -1,9 +1,9 @@
 // src/components/Navbar.jsx
 import { useState } from "react";
 import { Link } from "react-scroll";
-import { FiMenu, FiX } from "react-icons/fi";
+import { FiMenu, FiX, FiLogIn } from "react-icons/fi";
 
-const links = ["home", "about", "projects", "skills", "contact"];
+const links = ["home", "about", "projects", "contact"];
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -21,19 +21,17 @@ export default function Navbar() {
       <nav className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
         {/* Left - Logo */}
         <div className="flex-shrink-0">
-          <h1 className="text-xl font-bold text-indigo-600">Manjitha.dev</h1>
+          <h1 className="text-sm tracking-[2px] font-bold text-black">MANJITHA.dev</h1>
         </div>
 
         {/* Center - Navigation Links (Desktop) */}
-        <ul className="hidden md:flex flex-1 justify-center space-x-6">
+        <ul className="hidden md:flex flex-1 justify-center space-x-[45px]">
           {links.map((link) => (
             <li key={link}>
               <Link
                 to={link}
-                smooth
-                duration={500}
                 onClick={closeMenu}
-                className="text-gray-700 hover:text-indigo-600 cursor-pointer capitalize"
+                className="text-gray-500 text-sm tracking-[2px] font-bold hover:text-indigo-600 cursor-pointer uppercase"
               >
                 {link}
               </Link>
@@ -43,14 +41,19 @@ export default function Navbar() {
 
         {/* Right - Login button (Desktop) */}
         <div className="hidden md:flex">
-          <button className="text-white bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-md transition duration-300">
-            Login
-          </button>
+          <FiLogIn
+            className="text-gray-600 hover:text-indigo-700 cursor-pointer"
+            size={24}
+            title="Login"
+          />
         </div>
 
         {/* Mobile Menu Toggle Button */}
         <div className="md:hidden">
-          <button onClick={toggleMenu} className="text-gray-700 focus:outline-none">
+          <button
+            onClick={toggleMenu}
+            className="text-gray-700 focus:outline-none"
+          >
             {menuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
           </button>
         </div>
@@ -66,17 +69,18 @@ export default function Navbar() {
               smooth
               duration={500}
               onClick={closeMenu}
-              className="block text-gray-700 hover:text-indigo-600 capitalize cursor-pointer"
+              className="block text-gray-700 tracking-[2px] text-sm hover:text-indigo-600 uppercase cursor-pointer"
             >
               {link}
             </Link>
           ))}
-          <button
-            onClick={closeMenu}
-            className="block w-full text-white bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-md transition duration-300"
-          >
-            Login
-          </button>
+          <div className="w-full flex">
+            <FiLogIn
+              className="text-gray-600 hover:text-indigo-700 cursor-pointer"
+              size={24}
+              title="Login"
+            />
+          </div>
         </div>
       )}
     </header>
