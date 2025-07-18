@@ -21,7 +21,9 @@ export default function Navbar() {
       <nav className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
         {/* Left - Logo */}
         <div className="flex-shrink-0">
-          <h1 className="text-sm tracking-[2px] font-bold text-black">MANJITHA.dev</h1>
+          <h1 className="text-sm tracking-[2px] animate-pulse font-bold text-black">
+            MANJITHA.dev
+          </h1>
         </div>
 
         {/* Center - Navigation Links (Desktop) */}
@@ -42,9 +44,10 @@ export default function Navbar() {
         {/* Right - Login button (Desktop) */}
         <div className="hidden md:flex">
           <FiLogIn
-            className="text-gray-600 hover:text-indigo-700 cursor-pointer"
+            className="text-indigo-700 cursor-not-allowed animate-pulse"
             size={24}
             title="Login"
+            onClick={() => {alert("Only Admin can log in")}}
           />
         </div>
 
@@ -76,9 +79,10 @@ export default function Navbar() {
           ))}
           <div className="w-full flex">
             <FiLogIn
-              className="text-gray-600 hover:text-indigo-700 cursor-pointer"
+              className="text-gray-600 hover:text-indigo-700 cursor-not-allowed"
               size={24}
               title="Login"
+              onClick={() => {alert("Only Admin can log in")}}
             />
           </div>
         </div>
