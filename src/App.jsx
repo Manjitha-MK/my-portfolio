@@ -22,7 +22,7 @@ function App() {
           element={
             <div className="bg-white text-gray-900 font-sans">
               <Navbar />
-              <main className="pt-16">
+              <main className="pt-14">
                 <section id="home"><Hero /></section>
                 <section id="about"><About /></section>
                 <section id="projects"><Projects /></section>

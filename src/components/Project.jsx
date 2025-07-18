@@ -19,7 +19,8 @@ export default function Projects() {
   return (
       <div className="bg-gray-100 py-20 px-6">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold mb-10 text-center">Projects</h2>
+          <h2 className="text-[35px] font-bold text-center font-serif tracking-[5px]">PROJECTS</h2>
+          <div className="w-10 h-1 bg-purple-600 mx-auto mt-2 mb-10 rounded"></div>
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {projects.map((project, i) => (
               <Link
@@ -43,12 +44,12 @@ export default function Projects() {
 
                 {/* Optional buttons or links */}
                 <div className="mt-4">
-                  <a href="#" className="text-indigo-600 hover:underline mr-4">
+                  <span href="#" className="text-indigo-600 hover:underline mr-4">
                     Demo
-                  </a>
-                  <a href="#" className="text-gray-600 hover:underline">
+                  </span>
+                  <span href="#" className="text-gray-600 hover:underline">
                     Code
-                  </a>
+                  </span>
                 </div>
               </Link>
             ))}
