@@ -15,6 +15,7 @@ const AdminProjectForm = () => {
   const [projectUrl, setProjectUrl] = useState("");
   const [githubUrl, setGithubUrl] = useState("");
   const [newTech, setNewTech] = useState("");
+  const [images, setImages] = useState([]);
 
   const handleTechAdd = () => {
     const trimmed = newTech.trim();
@@ -29,50 +30,52 @@ const AdminProjectForm = () => {
   };
 
   const cleanUrl = (url) => {
-  const trimmed = url.trim();
-  return trimmed === "" ? undefined : trimmed;
-};
-
-  const handleSubmit = async (e) => {
-  e.preventDefault();
-
-  if (
-    !projectId ||
-    !title ||
-    !description ||
-    !category ||
-    !technologies.length
-  ) {
-    toast.error("Please fill all required fields");
-    return;
-  }
-
-  const projectData = {
-    projectId: projectId,
-    projectName: title,
-    description: description,
-    category: category,
-    technologies: technologies,
-   projectUrl: cleanUrl(projectUrl),
-    githubUrl: cleanUrl(githubUrl),
+    const trimmed = url.trim();
+    return trimmed === "" ? undefined : trimmed;
   };
 
-  try {
-     console.log("Sending:", projectData);
-    const response = await axios.post("http://localhost:5000/api/projects", projectData);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-    if (response.status === 201 || response.status === 200) {
-      console.log("projects",projectData);
-      toast.success("Project created successfully!");
-      navigate("/admin/projects");
-    } else {
-      toast.error("Failed to create project. Try again.");
+    if (
+      !projectId ||
+      !title ||
+      !description ||
+      !category ||
+      !technologies.length
+    ) {
+      toast.error("Please fill all required fields");
+      return;
     }
-  } catch (err) {
-    console.error("API error:", err);
-    toast.error("Something went wrong. Please check your server.");
-  }
-};
+
+    const formData = new FormData();
+    formData.append("projectId", projectId);
+    formData.append("projectName", title);
+    formData.append("description", description);
+    formData.append("category", category);
+    formData.append("projectUrl", cleanUrl(projectUrl) || "");
+    formData.append("githubUrl", cleanUrl(githubUrl) || "");
+    technologies.forEach((tech) => formData.append("technologies", tech));
+    images.forEach((img) => formData.append("images", img));
+
+    try {
+      console.log("Sending:", formData);
+      const response = await axios.post(
+        "http://localhost:5000/api/projects",
+        formData,
+      );
+      if (response.status === 201 || response.status === 200) {
+        console.log("projects", formData);
+        toast.success("Project created successfully!");
+        navigate("/admin/projects");
+      } else {
+        toast.error("Failed to create project. Try again.");
+      }
+    } catch (err) {
+      console.error("API error:", err);
+      toast.error("Something went wrong. Please check your server.");
+    }
+  };
 
   return (
     <div className="space-y-6">
@@ -264,6 +267,23 @@ const AdminProjectForm = () => {
                   onChange={(e) => setGithubUrl(e.target.value)}
                   className="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
                   placeholder="https://github.com"
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="images"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                >
+                  Upload Images
+                </label>
+                <input
+                  type="file"
+                  name="images"
+                  id="images"
+                  multiple
+                  accept="image/*"
+                  onChange={(e) => setImages([...e.target.files])}
+                  className="mt-1 block w-full text-sm text-gray-500 dark:text-gray-400"
                 />
               </div>
             </div>
