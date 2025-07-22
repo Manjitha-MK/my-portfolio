@@ -3,17 +3,17 @@ import React from "react";
 
 export default function Contact() {
   return (
-    <section className="bg-gray-900 text-white py-20 px-6">
+    <section className=" bg-[#f8f4f1] text-shadow-black py-20 px-6">
       <div className="max-w-4xl mx-auto">
-        <h2 className="text-3xl sm:text-4xl font-bold text-center mb-8">
+        <h2 className="text-[35px] font-serif text-amber-800 tracking-[5px] sm:text-4xl font-bold text-center mb-8">
           Get in Touch
         </h2>
-        <p className="text-gray-300 text-center mb-10 px-4 sm:px-8 md:px-20">
+        <p className="text-black text-center mb-10 px-4 sm:px-8 md:px-20 font-serif tracking-[2px]">
           Have a question, idea, or want to work together? Send me a message and
           I’ll get back to you as soon as possible.
         </p>
 
-        <form className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8 md:gap-10 bg-gray-800 p-6 sm:p-8 rounded-xl shadow-lg">
+        <form className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8 md:gap-10 bg-[#f8e0d6]  p-6 sm:p-8 rounded-xl shadow-lg">
           <div className="sm:col-span-1">
             <label htmlFor="name" className="block mb-2 text-sm font-medium">
               Name
@@ -21,7 +21,7 @@ export default function Contact() {
             <input
               type="text"
               id="name"
-              className="w-full p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full p-3 rounded-lg bg-white text-black border border-gray-600 focus:outline-none"
               placeholder="Your Name"
               required
             />
@@ -34,7 +34,7 @@ export default function Contact() {
             <input
               type="email"
               id="email"
-              className="w-full p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full p-3 rounded-lg bg-white text-black border border-gray-600 focus:outline-none"
               placeholder="you@example.com"
               required
             />
@@ -47,7 +47,7 @@ export default function Contact() {
             <textarea
               id="message"
               rows="5"
-              className="w-full p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full p-3 rounded-lg bg-white text-black border border-gray-600 focus:outline-none"
               placeholder="Type your message..."
               required
             ></textarea>
@@ -56,7 +56,7 @@ export default function Contact() {
           <div className="sm:col-span-2 text-center">
             <button
               type="submit"
-              className="bg-indigo-600 hover:bg-indigo-700 transition-colors text-white px-8 py-3 rounded-lg font-medium"
+              className="bg-amber-900 hover:bg-amber-950 transition-colors text-white px-8 py-3 rounded-lg font-medium"
             >
               Send Message
             </button>
