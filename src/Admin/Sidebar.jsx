@@ -14,7 +14,6 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
   const navigation = [
     { name: 'Dashboard', href: '/admin/dashboard', icon: HomeIcon },
     { name: 'Projects', href: '/admin/projects', icon: BriefcaseIcon },
-    { name: 'Skills', href: '/admin/skills', icon: AcademicCapIcon },
     { name: 'Blogs', href: '/admin/blogs', icon: DocumentTextIcon },
     { name: 'Messages', href: '/admin/messages', icon: ChatBubbleLeftRightIcon },
   ];
