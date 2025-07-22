@@ -3,7 +3,7 @@ import { Typewriter } from "react-simple-typewriter";
 
 export default function Hero() {
   return (
-    <section className="flex flex-col justify-center items-center min-h-screen bg-gray-900 text-white px-4 text-center">
+    <section className="flex flex-col justify-center items-center min-h-screen bg-[#1f1f1f] text-white px-4 text-center">
       <h1 className="text-4xl md:text-6xl font-bold font-serif tracking-[4px] mb-4">Hey, I'm Manjitha 👋</h1>
       <h2 className="text-xl md:text-2xl text-indigo-400 mb-6">
         <Typewriter
