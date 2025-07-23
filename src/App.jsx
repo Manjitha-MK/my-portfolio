@@ -8,6 +8,7 @@ import Navbar from './components/Navbar'
 import Projects from './components/Project'
 import AdminHomePage from './Admin/adminhomepage'
 import ProjectOverview from './components/ProjectOverview'
+import AllProjects from './components/AllProjects'
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
           }
         />
         <Route path='/projectInfo/:id' element={<ProjectOverview/>} />
+        <Route path='/allprojects' element={<AllProjects/>} />
       </Routes>
     </BrowserRouter>
   )
