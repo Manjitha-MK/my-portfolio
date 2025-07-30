@@ -31,11 +31,9 @@ const ProjectTable = () => {
   }, [projetsLoad]);
 
   const handleEdit = (project) => {
-    navigate(`/admin/projects/editproject`,{
-      state : { project : project},
+    navigate(`/admin/projects/editproject`, {
+      state: { project: project },
     });
-  
-     
   };
 
   const handleDelete = (projectId) => {
@@ -53,15 +51,23 @@ const ProjectTable = () => {
         });
     }
   };
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen text-gray-600">
+        Loading projects...
+      </div>
+    );
+  }
 
   return (
     <div className="relative w-full min-h-screen">
       <Link
         to={"/admin/projects/addprojects"}
-        className="absolute right-[5px] bottom-[60px]"
+        className="fixed lg:right-[20px] lg:bottom-[40px] md:right-[50px] md:bottom-[400px]"
       >
-        <PlusIcon className="h-[40px] w-[40px] bg-amber-100 rounded-full text-green-500" />
+        <PlusIcon className="h-10 w-10 bg-blue-600 rounded-full text-white shadow-lg hover:bg-white hover:text-blue-800" />
       </Link>
+
       <div className="overflow-x-auto w-full">
         <table className="min-w-full text-sm text-left text-gray-700 border border-gray-200">
           <thead className="bg-gray-100 text-xs uppercase text-gray-600">
