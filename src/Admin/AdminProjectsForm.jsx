@@ -10,12 +10,14 @@ const AdminProjectForm = () => {
   const [projectId, setProjectId] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [summary, setSummary] = useState("")
   const [category, setCategory] = useState("");
   const [technologies, setTechnologies] = useState([]);
   const [projectUrl, setProjectUrl] = useState("");
   const [githubUrl, setGithubUrl] = useState("");
   const [newTech, setNewTech] = useState("");
   const [images, setImages] = useState([]);
+  const [isFeatured, setIsFeatured] = useState(false);
 
   const handleTechAdd = () => {
     const trimmed = newTech.trim();
@@ -52,9 +54,11 @@ const AdminProjectForm = () => {
     formData.append("projectId", projectId);
     formData.append("projectName", title);
     formData.append("description", description);
+    formData.append("projectSummary", summary);
     formData.append("category", category);
     formData.append("projectUrl", cleanUrl(projectUrl) || "");
     formData.append("githubUrl", cleanUrl(githubUrl) || "");
+    formData.append("isFeatured", isFeatured);
     technologies.forEach((tech) => formData.append("technologies", tech));
     images.forEach((img) => formData.append("images", img));
 
@@ -62,7 +66,7 @@ const AdminProjectForm = () => {
       console.log("Sending:", formData);
       const response = await axios.post(
         "http://localhost:5000/api/projects",
-        formData,
+        formData
       );
       if (response.status === 201 || response.status === 200) {
         console.log("projects", formData);
@@ -147,6 +151,25 @@ const AdminProjectForm = () => {
                   rows={4}
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
+                  className="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+                  placeholder="Describe your project..."
+                />
+              </div>
+
+              {/*Project summary */}
+              <div>
+                <label
+                  htmlFor="description"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                >
+                  Project Summary
+                </label>
+                <textarea
+                  id="summary"
+                  name="summary"
+                  rows={4}
+                  value={summary}
+                  onChange={(e) => setSummary(e.target.value)}
                   className="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
                   placeholder="Describe your project..."
                 />
@@ -285,6 +308,14 @@ const AdminProjectForm = () => {
                   onChange={(e) => setImages([...e.target.files])}
                   className="mt-1 block w-full text-sm text-gray-500 dark:text-gray-400"
                 />
+              </div>
+              <div>
+                <input
+                  type="checkbox"
+                  checked={isFeatured}
+                  onChange={(e) => setIsFeatured(e.target.checked)}
+                />
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Feature this project</label>
               </div>
             </div>
           </div>
