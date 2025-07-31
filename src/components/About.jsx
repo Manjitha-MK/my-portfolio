@@ -17,7 +17,7 @@ export default function About() {
   return (
     <div className="bg-white text-gray-800 py-20 px-6">
       <div className="max-w-4xl mx-auto">
-        <h2 className="text-[35px] font-bold text-center font-serif tracking-[5px]">
+        <h2 className="text-[35px] text-center font-serif tracking-[0.1em]">
           ABOUT ME
         </h2>
         <div className="w-10 h-1 bg-purple-600 mx-auto mt-2 mb-6 rounded"></div>
@@ -30,7 +30,7 @@ export default function About() {
       </div>
       <div className="flex flex-col md:flex-row gap-x-[160px] gap-y-10 mt-6 py-6 px-4 sm:px-6 md:px-10 lg:px-20 justify-center">
         <div className="w-full md:w-1/2 bg-amber-0">
-          <h1 className="text-2xl text-black font-bold mb-4 ">
+          <h1 className="text-2xl text-black font-serif tracking-[0.1em] font-bold mb-4 ">
             Get to know me!
           </h1>
           <p className="text-sm sm:text-base font-serif leading-relaxed text-gray-700">
@@ -51,17 +51,19 @@ export default function About() {
             grow. If you have a good opportunity that matches my skills and
             experience then don't hesitate to contact me.
           </p>
-          <div className="md:flex">
+          <div className="flex">
             <Link
               to="contact"
-              className="text-white text-center mt-10 cursor-pointer bg-indigo-600 px-4 py-2 rounded-md animate-bounce transition duration-700"
+              className="text-red-900 text-center mt-10 hover:bg-red-900 hover:text-white font-serif cursor-pointer bg-white border-2  px-4 py-2 tracking-[0.1em] rounded-md animate-bounce transition duration-700"
             >
               CONTACT
             </Link>
           </div>
         </div>
         <div className="w-full md:w-1/2">
-          <h2 className="text-2xl font-bold mb-6 text-black">My Skills</h2>
+          <h2 className="text-2xl font-bold tracking-[0.1em] font-serif mb-6 text-black">
+            My Skills
+          </h2>
           <div className="flex flex-wrap gap-4">
             {skills.map((skill, index) => (
               <span

@@ -56,7 +56,7 @@ export default function Contact() {
           <div className="sm:col-span-2 text-center">
             <button
               type="submit"
-              className="bg-amber-900 hover:bg-amber-950 transition-colors text-white px-8 py-3 rounded-lg font-medium"
+              className=" hover:bg-amber-950 transition-colors tracking-[0.1em] border-2 bg-white text-amber-900 hover:text-white px-8 py-3 rounded-lg font-medium"
             >
               Send Message
             </button>

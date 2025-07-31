@@ -32,8 +32,12 @@ export default function Navbar() {
             <li key={link}>
               <Link
                 to={link}
+                spy={true}
+                offset={-64}
+                activeClass="font-bold text-red-900 text-[18px]"
+                className="text-sm tracking-[2px] hover:text-red-900 font-bold cursor-pointer transition-colors uppercase text-gray-500"
                 onClick={closeMenu}
-                className="text-gray-500 text-sm tracking-[2px] font-bold hover:text-indigo-600 cursor-pointer uppercase"
+                // className="text-gray-500 text-sm tracking-[2px] hover:shadow-2xs hover:shadow-indigo-600 font-bold hover:text-indigo-600 cursor-pointer uppercase"
               >
                 {link}
               </Link>
@@ -47,7 +51,9 @@ export default function Navbar() {
             className="text-indigo-700 cursor-not-allowed animate-pulse"
             size={24}
             title="Login"
-            onClick={() => {alert("Only Admin can log in")}}
+            onClick={() => {
+              alert("Only Admin can log in");
+            }}
           />
         </div>
 
@@ -79,10 +85,12 @@ export default function Navbar() {
           ))}
           <div className="w-full flex">
             <FiLogIn
-              className="text-gray-600 hover:text-indigo-700 cursor-not-allowed"
+              className="text-gray-600 hover:text-indigo-700 cursor-not-allowed animate-pulse"
               size={24}
               title="Login"
-              onClick={() => {alert("Only Admin can log in")}}
+              onClick={() => {
+                alert("Only Admin can log in");
+              }}
             />
           </div>
         </div>
