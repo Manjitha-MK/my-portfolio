@@ -1,8 +1,8 @@
 // src/components/AllProjects.jsx
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { FaGithub, FaExternalLinkAlt, FaArrowLeft } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
 
 const AllProjects = () => {
   const [projects, setProjects] = useState([]);
@@ -14,17 +14,24 @@ const AllProjects = () => {
       .catch((err) => console.error(err));
   }, []);
 
+  const navigate = useNavigate();
+
+  const handleBack = () => {
+    navigate("/", {state: {scrollTo: "projects"}})
+  }
+
   return (
     <section className="p-4 md:p-8 lg:p-12 bg-gray-100 min-h-screen">
-      <h2 className="text-3xl font-bold text-center mb-8 text-gray-800">
-        My Projects
+      <h2 className="text-[35px] tracking-[0.1em] font-serif text-center text-gray-800">
+        ALL PROJECTS
       </h2>
+      <div className="w-10 h-1 bg-purple-600 mx-auto mt-2 mb-10 rounded"></div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {projects.map((project) => (
           <Link
             to={`/projectInfo/${project.projectId}`}
             key={project.projectId}
-            className="bg-white shadow-md rounded-2xl overflow-hidden transition hover:shadow-xl"
+            className="bg-white shadow-md rounded-2xl border-2 overflow-hidden transition hover:shadow-2xl"
           >
             <div className="relative">
               {project.Images && project.Images.length > 0 && (
@@ -91,6 +98,15 @@ const AllProjects = () => {
             </div>
           </Link>
         ))}
+      </div>
+      {/* Back Button */}
+      <div className="mt-10">
+        <button
+          onClick={handleBack}
+          className="inline-flex border-2 px-4 py-2 animate-pulse tracking-[0.1em] rounded-full items-center text-red-800 cursor-pointer"
+        >
+          <FaArrowLeft className="mr-2 text-2xl " />
+        </button>
       </div>
     </section>
   );
