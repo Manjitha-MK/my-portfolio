@@ -14,16 +14,20 @@ const AdminEditprojectForm = () => {
       toast.error("Error loading project");
       navigate("/admin/projects");
     }
-  });
+  }, [project]);
 
   const [projectId, setProjectId] = useState(project.projectId);
   const [title, setTitle] = useState(project.projectName);
   const [description, setDescription] = useState(project.description);
+  const [summary, setSummary] = useState(project.projectSummary);
   const [category, setCategory] = useState(project.category);
   const [technologies, setTechnologies] = useState(project.technologies || []);
   const [projectUrl, setProjectUrl] = useState(project.projectUrl);
   const [githubUrl, setGithubUrl] = useState(project.githubUrl);
+  const [existingImages, setExistingImages] = useState(project?.Images || []);
+  const [newImages, setNewImages] = useState([]);
   const [newTech, setNewTech] = useState("");
+  const [isFeatured, setIsFeatured] = useState(project.isFeatured);
 
   const handleTechAdd = () => {
     const trimmed = newTech.trim();
@@ -37,22 +41,51 @@ const AdminEditprojectForm = () => {
     setTechnologies(technologies.filter((t) => t !== tech));
   };
 
-  const handleSubmit = (e) => {
+  const handleImageChange = (e) => {
+    setNewImages([...e.target.files]);
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const projectData = {
-      projectId: projectId,
-      projectName: title,
-      description: description,
-      category: category,
-      technologies: technologies,
-      projectUrl: projectUrl,
-      githubUrl: githubUrl,
-    };
 
-    axios.put(`http://localhost:5000/api/projects/${projectId}`, projectData);
+    const formData = new FormData();
+    formData.append("projectId", projectId);
+    formData.append("projectName", title);
+    formData.append("description", description);
+    formData.append("Project Summary", summary);
+    formData.append("category", category);
+    formData.append("projectUrl", projectUrl);
+    formData.append("githubUrl", githubUrl);
+    formData.append("isFeatured", isFeatured ? "true" : "false");
 
-    toast.success("Project update successfully!");
-    navigate("/admin/projects");
+    technologies.forEach((tech, index) => {
+      formData.append(`technologies[${index}]`, tech);
+    });
+    formData.append("existingImages", JSON.stringify(existingImages));
+    newImages.forEach((file) => {
+      formData.append("newImages", file);
+    });
+
+    // Optional: send list of existing image file names
+    existingImages.forEach((img, index) => {
+      formData.append(`existingImages[${index}]`, img);
+    });
+
+    try {
+      await axios.put(
+        `http://localhost:5000/api/projects/${projectId}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      toast.success("Project updated successfully!");
+      navigate("/admin/projects");
+    } catch (error) {
+      toast.error("Failed to update project",error);
+    }
   };
   return (
     <div className="space-y-6">
@@ -124,6 +157,25 @@ const AdminEditprojectForm = () => {
                   rows={4}
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
+                  className="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
+                  placeholder="Describe your project..."
+                />
+              </div>
+
+              {/*Project summary */}
+              <div>
+                <label
+                  htmlFor="description"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                >
+                  Project Summary
+                </label>
+                <textarea
+                  id="summary"
+                  name="summary"
+                  rows={4}
+                  value={summary}
+                  onChange={(e) => setSummary(e.target.value)}
                   className="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
                   placeholder="Describe your project..."
                 />
@@ -245,6 +297,48 @@ const AdminEditprojectForm = () => {
                   className="mt-1 block w-full border border-gray-300 dark:border-gray-600 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white"
                   placeholder="https://github.com"
                 />
+              </div>
+              {existingImages.length > 0 && (
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                    Existing Images
+                  </label>
+                  <div className="flex flex-wrap gap-3 mt-2">
+                    {existingImages.map((img, index) => (
+                      <img
+                        key={index}
+                        src={`http://localhost:5000/uploads/${img}`} // adjust if necessary
+                        alt="project"
+                        className="w-20 h-20 object-cover rounded"
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
+              <div>
+                <label
+                  htmlFor="images"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                >
+                  Upload New Images
+                </label>
+                <input
+                  type="file"
+                  multiple
+                  accept="image/*"
+                  onChange={handleImageChange}
+                  className="mt-1 block w-full text-sm text-gray-500 dark:text-gray-400"
+                />
+              </div>
+              <div>
+                <input
+                  type="checkbox"
+                  checked={isFeatured}
+                  onChange={(e) => setIsFeatured(e.target.checked)}
+                />
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                  Feature this project
+                </label>
               </div>
             </div>
           </div>
