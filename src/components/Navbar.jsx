@@ -34,7 +34,7 @@ export default function Navbar() {
                 to={link}
                 spy={true}
                 offset={-64}
-                activeClass="font-bold text-red-900 text-[18px]"
+                activeClass="font-bold text-red-900 text-[16px]"
                 className="text-sm tracking-[2px] hover:text-red-900 font-bold cursor-pointer transition-colors uppercase text-gray-500"
                 onClick={closeMenu}
                 // className="text-gray-500 text-sm tracking-[2px] hover:shadow-2xs hover:shadow-indigo-600 font-bold hover:text-indigo-600 cursor-pointer uppercase"
