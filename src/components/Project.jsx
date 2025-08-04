@@ -7,7 +7,7 @@ export default function Projects() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/projects")
+      .get("http://localhost:5000/api/projects/featured")
       .then((res) => {
         setProjects(res.data.projects);
       })
@@ -19,7 +19,7 @@ export default function Projects() {
   return (
     <div className="bg-gray-100 py-20 px-6">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-[35px] font-bold text-center font-serif tracking-[5px]">
+        <h2 className="text-[35px] text-center font-serif tracking-[0.1em]">
           PROJECTS
         </h2>
         <div className="w-10 h-1 bg-purple-600 mx-auto mt-2 mb-10 rounded"></div>
@@ -28,18 +28,22 @@ export default function Projects() {
             <Link
               to={`/projectInfo/${project.projectId}`}
               key={i}
-              className="bg-white p-6 rounded-lg shadow hover:shadow-xl transition"
+              className="bg-white p-6 rounded-lg shadow hover:shadow-2xl hover:border-l-red-900 hover:border-b-red-900 transition border-l-2 border-b-2"
             >
               {/* Show image if available */}
               {project.Images && project.Images.length > 0 && (
                 <img
-                  src={project.Images[0]}
+                  src={`http://localhost:5000/${
+                    project.Images[0].startsWith("uploads/")
+                      ? project.Images[0]
+                      : `uploads/${project.Images[0]}`
+                  }`}
                   alt={project.projectName}
                   className="w-full h-48 object-cover mb-4 rounded"
                 />
               )}
 
-              <h3 className="text-xl font-semibold mb-2">
+              <h3 className="text-xl font-semibold tracking-[0.1em] mb-2">
                 {project.projectName}
               </h3>
               <p className="text-sm text-gray-600">{project.description}</p>
@@ -56,6 +60,13 @@ export default function Projects() {
             </Link>
           ))}
         </div>
+        <Link
+          to={`/allprojects`}
+          className="relative sm:left-[100px] md:left-[300px] lg:left-[650px] xl:left-[950px] top-10 bg-white text-black border-2 border-black no-underline 
+          text-[14px] animate-pulse tracking-[0.1em] rounded-3xl px-[30px] py-[10px] transition-all duration-500 hover:text-red-900 hover:border-red-900 shadow hover:shadow-2xl"
+        >
+          View All Projects
+        </Link>
       </div>
     </div>
   );
