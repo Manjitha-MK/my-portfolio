@@ -1,9 +1,30 @@
 import { Link } from "react-scroll";
 import { Typewriter } from "react-simple-typewriter";
+import "../assets/Hero.css";
 
 export default function Hero() {
+  const drops = Array.from({ length: 250 }, () => ({
+    left: Math.random() * 100 + "vw",
+    animationDelay: Math.random() * 3 + "s",
+  }));
   return (
     <section className="flex flex-col-reverse  lg:flex-row justify-center items-center min-h-screen bg-[#1f1f1f] text-white px-4 text-center">
+      {/* Rain Animation */}
+      <div className="rain">
+        {drops.map((drop, index) => (
+          <div
+            key={index}
+            className="drop"
+            style={{
+              left: drop.left,
+              animationDelay: drop.animationDelay,
+            }}
+          />
+        ))}
+      </div>
+      
+      <div className="lightning" />
+
       <div>
         <h1 className="text-4xl md:text-6xl font-bold font-serif tracking-[4px] mb-4">
           Hey, I'm Manjitha 👋
